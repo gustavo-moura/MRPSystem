@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>927</width>
+    <height>575</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MRP Systema</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>927</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArquivo">
+    <property name="title">
+     <string>Arquivo</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionCr_ditos"/>
+   </widget>
+   <widget class="QMenu" name="menuProdutos">
+    <property name="title">
+     <string>Produtos</string>
+    </property>
+    <addaction name="actionInserir_Informa_es"/>
+    <addaction name="separator"/>
+    <addaction name="actionCarregar_Pre_Defini_es"/>
+   </widget>
+   <widget class="QMenu" name="menuMRP">
+    <property name="title">
+     <string>MRP</string>
+    </property>
+    <addaction name="actionRodar_Execu_o"/>
+   </widget>
+   <addaction name="menuArquivo"/>
+   <addaction name="menuProdutos"/>
+   <addaction name="menuMRP"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCarregar_pre_defini_es">
+   <property name="text">
+    <string>Carregar pre-definições</string>
+   </property>
+  </action>
+  <action name="actionInserir_Informa_es">
+   <property name="text">
+    <string>Inserir Informações</string>
+   </property>
+  </action>
+  <action name="actionCarregar_Pre_Defini_es">
+   <property name="text">
+    <string>Carregar Pre-Definições</string>
+   </property>
+  </action>
+  <action name="actionCr_ditos">
+   <property name="text">
+    <string>Créditos</string>
+   </property>
+  </action>
+  <action name="actionRodar_Execu_o">
+   <property name="text">
+    <string>Rodar Execução</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
