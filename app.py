@@ -26,7 +26,7 @@ class AppWindow(QMainWindow):
 
 
 
-    # Declaração de Funções
+    # Declaração de Ações dos Botões
 
     # Menu
     def click_creditos(self):
