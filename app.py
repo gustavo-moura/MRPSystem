@@ -53,7 +53,9 @@ class AppWindow(QMainWindow):
     def click_cadastrar(self):
         # realizar a verificação: se o item já foi cadastrado, perguntar se quer substituir as informações dele
         # com as informações inseridas agora
-        pass
+        # self, codigo, nome, nivel, tr, lote, emin, eatual
+        Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
+        	self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
 
 
 

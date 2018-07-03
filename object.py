@@ -3,10 +3,10 @@
 
 # Classe que organiza os itens que serão utilizados no MRP
 class Item():
-	def __init__(self, codigo, nome, nivel, tr, lote, emin, eatual):
+	def __init__(self, codigo, nome, tr, lote, emin, eatual):
 		self.codigo = codigo	# Código do item 
 		self.nome = nome		# Nome descritivo
-		self.nivel = nivel		# Nível na árvore de produto
+		# self.nivel = nivel		# Nível na árvore de produto
 		self.tr = tr 			# Tempo de Ressuprimento
 		self.lote = lote		# Lote mínimo
 		self.emin = emin		# estoque mínimo para o produto
