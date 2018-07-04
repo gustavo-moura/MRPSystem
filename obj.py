@@ -9,6 +9,8 @@ class Item():
 	emin = None
 	eatual = None
 
+	dependencias = []
+
 	def __init__(self, codigo, nome, tr, lote, emin, eatual):
 		self.codigo = codigo	# Código do item 
 		self.nome = nome		# Nome descritivo
@@ -17,6 +19,11 @@ class Item():
 		self.lote = lote		# Lote mínimo
 		self.emin = emin		# estoque mínimo para o produto
 		self.eatual = eatual	# estoque atual inicial
+
+
+	def addDependencia(self, item):
+		self.dependencias.append(item)
+
 
 
 # Classe que armazena uma coleção de itens
