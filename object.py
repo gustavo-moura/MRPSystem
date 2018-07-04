@@ -1,8 +1,14 @@
 
 
-
 # Classe que organiza os itens que serão utilizados no MRP
 class Item():
+	codigo = None
+	nome = None
+	tr = None
+	lote = None
+	emin = None
+	eatual = None
+
 	def __init__(self, codigo, nome, tr, lote, emin, eatual):
 		self.codigo = codigo	# Código do item 
 		self.nome = nome		# Nome descritivo
@@ -11,6 +17,28 @@ class Item():
 		self.lote = lote		# Lote mínimo
 		self.emin = emin		# estoque mínimo para o produto
 		self.eatual = eatual	# estoque atual inicial
+
+
+# Classe que armazena uma coleção de itens
+class Biblioteca():
+	itens = []
+
+	# retorna true se o item foi inserido corretamente, false cc
+	def addItem(self, item):
+		self.itens.append(item)
+
+		if(self.itens.index(item)):
+			return True
+		else return False
+
+	# Retorna o item da biblioteca referente ao Índice passado como entrada
+	def getItem_index(self, index):
+		return self.itens[index]
+
+	# Retorna o item da biblioteca referente ao item passado como entrada
+	def getItem_item(self, item):
+		return self.itens[self.itens.index(item)]
+
 
 
 # O MRP em si. Um para cada item

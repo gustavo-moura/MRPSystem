@@ -374,7 +374,98 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_MRP"/>
+    <widget class="QWidget" name="page_MRP">
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Century Gothic</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>MRP</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>110</y>
+        <width>781</width>
+        <height>241</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lb_item_MRP">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>761</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Century Gothic</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Nome do item - Código</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>20</y>
+        <width>191</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Century Gothic</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Item para executar o MRP:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="combo_MRP">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>20</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_executar">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>20</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Executar</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -456,7 +547,7 @@
   </action>
   <action name="actionRodar_Execu_o">
    <property name="text">
-    <string>Rodar Execução</string>
+    <string>Executar</string>
    </property>
    <property name="statusTip">
     <string>Executa uma rodada do MRP para um dado item</string>

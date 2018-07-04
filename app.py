@@ -31,6 +31,9 @@ class AppWindow(QMainWindow):
         # Item
         self.ui.btn_novoitem.clicked.connect(self.click_inserir)
 
+        # MRP
+        self.ui.btn_executar.clicked.connect(self.executarMRP)
+
 
 
     # ############ Declaração de Ações dos Botões
@@ -46,7 +49,7 @@ class AppWindow(QMainWindow):
     def click_inserir(self):    
     	self.ui.stackedWidget.setCurrentWidget(self.ui.page_Cadastro)
         
-        
+
     # Insere itens no sistema
     def click_predefinir(self):
         # ao inves de ter que cadastrar todos os itens, já pré-inserir uma quantidade legal suficiente para
@@ -58,7 +61,6 @@ class AppWindow(QMainWindow):
 
     # Roda o MRP      
     def click_MRP(self):
-      
     	self.ui.stackedWidget.setCurrentWidget(self.ui.page_MRP)
         
 
@@ -77,6 +79,17 @@ class AppWindow(QMainWindow):
         # self, codigo, nome, nivel, tr, lote, emin, eatual
         Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
         	self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
+
+
+
+
+    # ###### Executar o MRP
+    def executarMRP(self):
+    	pass
+
+
+
+
 
 
 
