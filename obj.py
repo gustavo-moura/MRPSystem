@@ -23,13 +23,16 @@ class Item():
 class Biblioteca():
 	itens = []
 
+	def __init__(self):
+		self.itens = []
+
 	# retorna true se o item foi inserido corretamente, false cc
 	def addItem(self, item):
 		self.itens.append(item)
 
 		if(self.itens.index(item)):
 			return True
-		else return False
+		else: return False
 
 	# Retorna o item da biblioteca referente ao Índice passado como entrada
 	def getItem_index(self, index):
@@ -38,6 +41,16 @@ class Biblioteca():
 	# Retorna o item da biblioteca referente ao item passado como entrada
 	def getItem_item(self, item):
 		return self.itens[self.itens.index(item)]
+
+	# Retorna o array de itens da biblioteca
+	def getItems(self):
+		retorno = []
+
+		for x in range(len(self.itens)):
+			retorno.append(self.itens[x].codigo + " - " + self.itens[x].nome)
+
+
+		return retorno
 
 
 

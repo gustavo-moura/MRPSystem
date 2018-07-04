@@ -1,9 +1,11 @@
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
 from main import Ui_MainWindow
-from object import Item, Item_MRP
+from obj import Item, Item_MRP, Biblioteca
 
 class AppWindow(QMainWindow):
+    biblioteca = None
+
     def __init__(self):
         super(AppWindow, self).__init__()
 
@@ -14,7 +16,9 @@ class AppWindow(QMainWindow):
         self.inicializa_botoes()
 
         # Abre a página inicial
-    	self.ui.stackedWidget.setCurrentWidget(self.ui.page_Inicial)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Inicial)
+
+        self.biblioteca = Biblioteca()
 
 
     def inicializa_botoes(self):
@@ -47,13 +51,21 @@ class AppWindow(QMainWindow):
 
     # Abre a janela de cadastro de item
     def click_inserir(self):    
-    	self.ui.stackedWidget.setCurrentWidget(self.ui.page_Cadastro)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Cadastro)
+        self.ui.comboBox.addItems(self.biblioteca.getItems())
         
 
     # Insere itens no sistema
     def click_predefinir(self):
         # ao inves de ter que cadastrar todos os itens, já pré-inserir uma quantidade legal suficiente para
-        # realizar os testes  (inserir tudo de object.py).
+        # realizar os testes  (inserir tudo de obj.py).
+
+        # Item(codigo, nome, tr_leadtime, lote_mínimo, emin, eatual)
+
+        # item 1
+        itm1 = Item("BK-2", "Bicicleta Padrão", 2, 10, 0, 2)
+        self.biblioteca.addItem(itm1)
+
 
         # Mensagem de informação de sucesso
         QMessageBox.about(self.ui.stackedWidget, "Pré-definido", "Estado do sistema pronto para rodar o MRP.")
@@ -61,14 +73,14 @@ class AppWindow(QMainWindow):
 
     # Roda o MRP      
     def click_MRP(self):
-    	self.ui.stackedWidget.setCurrentWidget(self.ui.page_MRP)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_MRP)
         
 
     # Exibe relatório de itens já inseridos no sistema
     def click_itens(self):
-    	
-    	self.ui.stackedWidget.setCurrentWidget(self.ui.page_Itens)
-    	
+        
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Itens)
+        
 
 
 
@@ -77,15 +89,16 @@ class AppWindow(QMainWindow):
         # realizar a verificação: se o item já foi cadastrado, perguntar se quer substituir as informações dele
         # com as informações inseridas agora
         # self, codigo, nome, nivel, tr, lote, emin, eatual
-        Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
-        	self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
+        itm = Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
+            self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
 
+        self.biblioteca.addItem(itm)
 
 
 
     # ###### Executar o MRP
     def executarMRP(self):
-    	pass
+        pass
 
 
 

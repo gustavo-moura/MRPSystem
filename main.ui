@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page_Inicial">
      <widget class="QPushButton" name="pushButton">
@@ -66,7 +66,7 @@
        <rect>
         <x>40</x>
         <y>40</y>
-        <width>461</width>
+        <width>621</width>
         <height>401</height>
        </rect>
       </property>
@@ -172,7 +172,7 @@
       <widget class="QPushButton" name="pushButton_3">
        <property name="geometry">
         <rect>
-         <x>320</x>
+         <x>410</x>
          <y>200</y>
          <width>71</width>
          <height>23</height>
@@ -268,7 +268,7 @@
         <rect>
          <x>150</x>
          <y>230</y>
-         <width>261</width>
+         <width>351</width>
          <height>101</height>
         </rect>
        </property>
@@ -276,8 +276,8 @@
       <widget class="QPushButton" name="btn_cadastrar">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>370</y>
+         <x>210</x>
+         <y>360</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -289,7 +289,7 @@
       <widget class="QPushButton" name="pushButton_4">
        <property name="geometry">
         <rect>
-         <x>391</x>
+         <x>480</x>
          <y>200</y>
          <width>21</width>
          <height>23</height>
@@ -326,6 +326,38 @@
        </property>
        <property name="text">
         <string>Estoque Mínimo</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>200</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>Depende de quais itens</string>
+       </property>
+       <property name="text">
+        <string>Qtd:</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="in_cad_eatual_2">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>200</y>
+         <width>51</width>
+         <height>22</height>
+        </rect>
        </property>
       </widget>
      </widget>
