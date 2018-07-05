@@ -81,20 +81,20 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_Itens)
 
         if (self.biblioteca.estaVazia()):
-            l = QTreeWidgetItem("Não há itens cadastrados")
-            self.ui.tree_item.addTopLevelItem(l)
-            
+            l = QTreeWidgetItem(["Não há itens cadastrados"])
+            self.ui.tree_itens.addTopLevelItem(l)
+
         else:
-            for i in range(len(self.biblioteca)):
-                item = self.biblioteca.getItem(i)
-                l = QTreeWidgetItem(item.codigo + " - " + item.nome)
+            for i in range(self.biblioteca.lenght()):
+                item = self.biblioteca.getItem_index(i)
+                l = QTreeWidgetItem([item.codigo + " - " + item.nome])
 
                 for j in range(len(item.dependencias)):
-                    c = QTreeWidgetItem(item.dependencias[j].codigo + " - " + item.dependencias[j].nome)
+                    c = QTreeWidgetItem([item.dependencias[j].codigo + " - " + item.dependencias[j].nome])
 
                     l.addChild(c)
 
-                self.ui.tree_item.addTopLevelItem(l)
+                self.ui.tree_itens.addTopLevelItem(l)
 
 
 

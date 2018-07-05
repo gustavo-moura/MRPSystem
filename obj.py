@@ -63,6 +63,8 @@ class Biblioteca():
 			return True
 		else: return False
 
+	def lenght(self):
+		return len(self.itens)
 
 
 # O MRP em si. Um para cada item
