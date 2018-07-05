@@ -56,8 +56,12 @@ class Biblioteca():
 		for x in range(len(self.itens)):
 			retorno.append(self.itens[x].codigo + " - " + self.itens[x].nome)
 
-
 		return retorno
+
+	def estaVazia(self):
+		if(self.itens == []):
+			return True
+		else: return False
 
 
 

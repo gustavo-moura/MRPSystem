@@ -80,19 +80,22 @@ class AppWindow(QMainWindow):
     def click_itens(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_Itens)
 
-        headerItem  = QTreeWidgetItem()
-        item    = QTreeWidgetItem()
+        if (self.biblioteca.estaVazia()):
+            l = QTreeWidgetItem("Não há itens cadastrados")
+            self.ui.tree_item.addTopLevelItem(l)
+            
+        else:
+            for i in range(len(self.biblioteca)):
+                item = self.biblioteca.getItem(i)
+                l = QTreeWidgetItem(item.codigo + " - " + item.nome)
 
-        for i in range(3):
-            parent = QTreeWidgetItem(self.ui.tree_itens)
-            parent.setText(0, "Parent {}".format(i))
-            parent.setFlags(parent.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
-            for x in range(5):
-                child = QTreeWidgetItem(parent)
-                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
-                child.setText(0, "Child {}".format(x))
-                child.setCheckState(0, Qt.Unchecked)
-        
+                for j in range(len(item.dependencias)):
+                    c = QTreeWidgetItem(item.dependencias[j].codigo + " - " + item.dependencias[j].nome)
+
+                    l.addChild(c)
+
+                self.ui.tree_item.addTopLevelItem(l)
+
 
 
 
