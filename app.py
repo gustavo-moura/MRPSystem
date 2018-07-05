@@ -63,23 +63,78 @@ class AppWindow(QMainWindow):
         # realizar os testes  (inserir tudo de obj.py).
 
         # Item(codigo, nome, tr_leadtime, lote_mínimo, emin, eatual)
-        if(self.predefinir==False):
+        if(self.predefinido==False):
             # item 1
             itm1 = Item("BK-2", "Bicicleta Padrão", 2, 10, 0, 2)
             self.biblioteca.addItem(itm1)
 
             # item 2
-            itm2 = Item("Ex", "Exemplo exclua esse", 2, 10, 0, 2)
+            itm2 = Item("Sa-1", "Selim", 3, 20, 10, 0)
             self.biblioteca.addItem(itm2)
 
+            # item 3
+            itm3 = Item("WH-1", "Roda", 2, 40, 20, 5)
+            self.biblioteca.addItem(itm3)
+
+            # item 4
+            itm4 = Item("FR-2", "Quadro", 7, 20, 30, 10)
+            self.biblioteca.addItem(itm4)
+
+            # item 5
+            itm5 = Item("TR-1", "Pneu", 3, 100, 20, 30)
+            self.biblioteca.addItem(itm5)
+
+            # item 6
+            itm6 = Item("RM-1", "Aro", 1, 80, 100, 20)
+            self.biblioteca.addItem(itm6)
+
+            # item 7
+            itm7 = Item("HB-1", "Cubo", 1, 80, 100, 20)
+            self.biblioteca.addItem(itm7)
+
+            # item 8
+            itm8 = Item("SP-1", "Raio", 3, 500, 500, 600)
+            self.biblioteca.addItem(itm8)
+
+            # item 9
+            itm9 = Item("TU-1", "Tubo Metálico", 3, 60, 30, 30)
+            self.biblioteca.addItem(itm9)
+
+            # item 10
+            itm10 = Item("MS-1", "Tira Metálica", 3, 100, 2, 40)
+            self.biblioteca.addItem(itm10)
+
+            # item 11
+            itm11 = Item("BB-1", "Rolamentos", 3, 50, 30, 5)
+            self.biblioteca.addItem(itm11)
+
+            # item 12
+            itm12 = Item("BO-1", "Eixo de Roda", 3, 100, 100, 40)
+            self.biblioteca.addItem(itm12)
+
+            # item 13
+            itm13 = Item("HO-1", "Cubo Externo", 3, 100, 100, 0)
+            self.biblioteca.addItem(itm13)
 
 
-            # teste de dependencia
+            # dependencias
             itm1.addDependencia(itm2)
+            itm1.addDependencia(itm3)
+            itm1.addDependencia(itm4)
+            itm3.addDependencia(itm5)
+            itm3.addDependencia(itm6)
+            itm3.addDependencia(itm7)
+            itm3.addDependencia(itm8)
+            itm3.addDependencia(itm9)
+            itm6.addDependencia(itm10)
+            itm7.addDependencia(itm11)
+            itm7.addDependencia(itm12)
+            itm7.addDependencia(itm13)
+
 
         # Mensagem de informação de sucesso
         QMessageBox.about(self.ui.stackedWidget, "Pré-definido", "Estado do sistema pronto para rodar o MRP.")
-        self.predefinir = True
+        self.predefinido = True
     
 
     # Roda o MRP      
@@ -121,7 +176,7 @@ class AppWindow(QMainWindow):
         # self, codigo, nome, nivel, tr, lote, emin, eatual
 
         # Só cadastra um item novo se ele ainda não estiver no banco
-        if(biblioteca.naoTem(self.ui.in_cad_codigo.text())):
+        if(self.biblioteca.naoTem(self.ui.in_cad_codigo.text())):
             itm = Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
                 self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
 

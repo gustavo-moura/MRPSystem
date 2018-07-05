@@ -2,14 +2,15 @@
 
 # Classe que organiza os itens que serão utilizados no MRP
 class Item():
+	'''
 	codigo = None
 	nome = None
 	tr = None
 	lote = None
 	emin = None
 	eatual = None
-
 	dependencias = []
+	'''
 
 	def __init__(self, codigo, nome, tr, lote, emin, eatual):
 		self.codigo = codigo	# Código do item 
@@ -20,9 +21,15 @@ class Item():
 		self.emin = emin		# estoque mínimo para o produto
 		self.eatual = eatual	# estoque atual inicial
 
+		self.dependencias = []
+
 
 	def addDependencia(self, item):
 		self.dependencias.append(item)
+
+	def getDependencias(self):
+		for dp in self.dependencias:
+			print (str(dp))
 
 
 
