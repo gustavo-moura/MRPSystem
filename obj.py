@@ -1,4 +1,4 @@
-
+import math
 
 # Classe que organiza os itens que serão utilizados no MRP
 class Item():
@@ -31,7 +31,11 @@ class Item():
 		for dp in self.dependencias:
 			print (str(dp))
 
+class Dependencia:
 
+	def __init__(self, item, qtd):
+		self.item = item 
+		self.q = qtd
 
 # Classe que armazena uma coleção de itens
 class Biblioteca():
@@ -79,20 +83,57 @@ class Biblioteca():
 				return False
 		return True
 
-
 # O MRP em si. Um para cada item
 class Item_MRP():
-	# Trabalhando com MRP de 12 semanas
 
 	def __init__(self, item):
 		self.item = item
+		n = 1+12
+		self.n = n       # Trabalhando com MRP de 1+12 semanas
+		self.nb = [0]*n  # Necessidades Brutas
+		self.rp = [0]*n  # Recebimento Programado
+		self.ed = [0]*n  # Estoque Disponível
+		self.lp = [0]*n  # Liberação de Pedido
+		self.ed[0] = item.eatual
+	
+	def add_nb(self, semana, qtd):
+		self.nb[semana] += qtd
+		self.atualizar(semana)
 
+	def set_nb(self, semana, qtd):
+		self.nb[semana] = qtd
+		self.atualizar(semana)
 
+	def atualizar(self, inicio):
+		lote = self.item.lote
+		for i in range(inicio, self.n):
+			nb = self.nb[i]
+			ed = self.ed[i-1]
+			qtd = math.ceil((nb - ed) / lote) * lote
+			if ed >= nb or self.pedido(i, qtd):
+				self.ed[i] = ed + self.rp[i] - nb
+			else:
+				self.ed[i] = ed + self.rp[i]
+	
+	def pedido(semana, qtd):
+		'''
+		Libera pedidos para atender a quantidade solicitada na semana atual,
+		primeiro verificando os estoques de dependencias e atualizando seus MRPs
+		'''
+		lead = self.item.tr
+		if semana - lead < 1:
+			return False
+		for dp in self.item.dependencias:
+			dp_mrp = Item_MRP.find(dp.item)
+			if dp_mrp.ed[semana] < qtd * dp.q:
+				return False
+		for dp in self.item.dependencias:
+			Item_MRP.find(dp.item).add_nb(qtd * dp.q)
+		self.lp[semana-lead] += qtd
+		self.rp[semana] += qtd
+		return True
 
-	'''
-	NB: Necessidades Brutas
-	RP: Recebimento Programado
-	ED: Estoque Disponível
-	NL: Necessidade Líquida
-	LP: Liberação de Pedido
-	'''
+	@classmethod
+	def find(item):
+		# Implementar busca de Item_MRP relacionado a um dado item
+		pass
