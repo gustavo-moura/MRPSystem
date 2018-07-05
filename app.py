@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox, QTreeWidgetItem
 from main import Ui_MainWindow
 from obj import Item, Item_MRP, Biblioteca
 
@@ -78,8 +78,20 @@ class AppWindow(QMainWindow):
 
     # Exibe relatório de itens já inseridos no sistema
     def click_itens(self):
-        
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_Itens)
+
+        headerItem  = QTreeWidgetItem()
+        item    = QTreeWidgetItem()
+
+        for i in range(3):
+            parent = QTreeWidgetItem(self.ui.tree_itens)
+            parent.setText(0, "Parent {}".format(i))
+            parent.setFlags(parent.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+            for x in range(5):
+                child = QTreeWidgetItem(parent)
+                child.setFlags(child.flags() | Qt.ItemIsUserCheckable)
+                child.setText(0, "Child {}".format(x))
+                child.setCheckState(0, Qt.Unchecked)
         
 
 

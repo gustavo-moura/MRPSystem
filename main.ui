@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_Inicial">
      <widget class="QPushButton" name="pushButton">
@@ -382,16 +382,6 @@
        <string>Itens Cadastrados</string>
       </property>
      </widget>
-     <widget class="QTreeView" name="tree_itens">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>40</y>
-        <width>301</width>
-        <height>501</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QPushButton" name="btn_novoitem">
       <property name="geometry">
        <rect>
@@ -404,6 +394,21 @@
       <property name="text">
        <string>Novo item</string>
       </property>
+     </widget>
+     <widget class="QTreeWidget" name="tree_itens">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>301</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string notr="true">1</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="page_MRP">
