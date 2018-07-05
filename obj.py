@@ -66,6 +66,12 @@ class Biblioteca():
 	def lenght(self):
 		return len(self.itens)
 
+	def naoTem(self, codigo):
+		for i in range(self.itens):
+			if(self.itens[i].codigo == codigo):
+				return False
+		return True
+
 
 # O MRP em si. Um para cada item
 class Item_MRP():

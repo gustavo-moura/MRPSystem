@@ -5,6 +5,7 @@ from obj import Item, Item_MRP, Biblioteca
 
 class AppWindow(QMainWindow):
     biblioteca = None
+    predefinido = False
 
     def __init__(self):
         super(AppWindow, self).__init__()
@@ -57,29 +58,43 @@ class AppWindow(QMainWindow):
 
     # Insere itens no sistema
     def click_predefinir(self):
+
         # ao inves de ter que cadastrar todos os itens, já pré-inserir uma quantidade legal suficiente para
         # realizar os testes  (inserir tudo de obj.py).
 
         # Item(codigo, nome, tr_leadtime, lote_mínimo, emin, eatual)
+        if(self.predefinir==False):
+            # item 1
+            itm1 = Item("BK-2", "Bicicleta Padrão", 2, 10, 0, 2)
+            self.biblioteca.addItem(itm1)
 
-        # item 1
-        itm1 = Item("BK-2", "Bicicleta Padrão", 2, 10, 0, 2)
-        self.biblioteca.addItem(itm1)
+            # item 2
+            itm2 = Item("Ex", "Exemplo exclua esse", 2, 10, 0, 2)
+            self.biblioteca.addItem(itm2)
 
+
+
+            # teste de dependencia
+            itm1.addDependencia(itm2)
 
         # Mensagem de informação de sucesso
         QMessageBox.about(self.ui.stackedWidget, "Pré-definido", "Estado do sistema pronto para rodar o MRP.")
+        self.predefinir = True
     
 
     # Roda o MRP      
     def click_MRP(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_MRP)
+        self.ui.combo_MRP.addItems(self.biblioteca.getItems())
         
 
     # Exibe relatório de itens já inseridos no sistema
     def click_itens(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_Itens)
 
+        self.ui.tree_itens.clear()
+
+        # Inclusão dos itens cadastrados na árvore
         if (self.biblioteca.estaVazia()):
             l = QTreeWidgetItem(["Não há itens cadastrados"])
             self.ui.tree_itens.addTopLevelItem(l)
@@ -104,10 +119,17 @@ class AppWindow(QMainWindow):
         # realizar a verificação: se o item já foi cadastrado, perguntar se quer substituir as informações dele
         # com as informações inseridas agora
         # self, codigo, nome, nivel, tr, lote, emin, eatual
-        itm = Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
-            self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
 
-        self.biblioteca.addItem(itm)
+        # Só cadastra um item novo se ele ainda não estiver no banco
+        if(biblioteca.naoTem(self.ui.in_cad_codigo.text())):
+            itm = Item(self.ui.in_cad_codigo.text(), self.ui.in_cad_nome.text(), 
+                self.ui.in_cad_tr.text(), self.ui.in_cad_lote.text(), self.ui.in_cad_emin.text(), self.ui.in_cad_eatual.text())
+
+            self.biblioteca.addItem(itm)
+
+        else:
+            # Perguntar se quer fazer modifivações
+            pass
 
 
 
