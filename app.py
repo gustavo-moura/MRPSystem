@@ -205,28 +205,39 @@ class AppWindow(QMainWindow):
         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
         mrp = Item_MRP.find(item)
         self.ui.lb_item_MRP.setText(item.codigo + " - " + item.nome)
+        self.setCell(0, 1, item.codigo)
         self.atualizarMRP(mrp)
 
     # ###### Executar o MRP
     def executarMRP(self):
         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
         mrp = Item_MRP.find(item)
-        for sem in range(1, mrp.n):
+        for i in range(1, mrp.n):
             try:
-                col = sem+1
-                nb = parsenumber(self.ui.tableWidget.item(1, col).text())
-                if nb != None:
-                    mrp.set_nb(sem, nb)
+                col = i+1
+                mrp.nb[i] = self.getCell(1, col) or mrp.nb[i]
+                mrp.rp[i] = self.getCell(2, col) or mrp.rp[i]
+                mrp.ed[i] = self.getCell(3, col) or mrp.ed[i]
+                mrp.lp[i] = self.getCell(4, col) or mrp.lp[i]
             except:
-                mrp.atualizar(sem)
+                pass
+        mrp.atualizar(1)
         self.atualizarMRP(mrp)
 
     def atualizarMRP(self, mrp):
         for i in range(mrp.n):
-            self.ui.tableWidget.setItem(1, i+1, QTableWidgetItem(str(mrp.nb[i])))
-            self.ui.tableWidget.setItem(2, i+1, QTableWidgetItem(str(mrp.rp[i])))
-            self.ui.tableWidget.setItem(3, i+1, QTableWidgetItem(str(mrp.ed[i])))
-            self.ui.tableWidget.setItem(4, i+1, QTableWidgetItem(str(mrp.lp[i])))
+            self.setCell(1, i+1, mrp.nb[i])
+            self.setCell(2, i+1, mrp.rp[i])
+            self.setCell(3, i+1, mrp.ed[i])
+            self.setCell(4, i+1, mrp.lp[i])
+
+    def setCell(self, i, j, n):
+        self.ui.tableWidget.setItem(i, j, QTableWidgetItem(str(n)))
+
+    def getCell(self, i, j):
+        it = self.ui.tableWidget.item(i, j)
+        if it:
+            return parsenumber(it.text())
 
 
 

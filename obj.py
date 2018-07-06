@@ -139,8 +139,8 @@ class Item_MRP():
 	def find(item):
 		try:
 			return Item_MRP._db[item]
-		except:
+		except(KeyError):
 			mrp = Item_MRP(item)
-			Item_MRP._db = Item_MRP(item)
+			Item_MRP._db[item] = mrp
 			return mrp
 
