@@ -213,8 +213,8 @@ class AppWindow(QMainWindow):
             self.biblioteca.addItem(itm)
 
         else:
-            # Perguntar se quer fazer modifivações
-            pass
+            QMessageBox.about(self.ui.stackedWidget, "Erro", "Código de item já cadastrado")
+        
 
     # ###### Executar o MRP
     def executarMRP(self):
