@@ -2,6 +2,13 @@
 This repository contains the implementation of a MRP system in the context of the course Modelagem da Produção - july 2018
 
 
+## Executável (Windows)
+
+Para executar o programa no Windows, baixe o executável "MRPSystem.exe" e o execute normalmente.
+
+Link: 
+
+
 REQUISITOS MÍNIMOS
 
 Para rodar, é necessário instalar o PyQt5 (utilize o comando "pip install PyQt5") [não sei se funciona no Arch]
