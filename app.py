@@ -35,11 +35,16 @@ class AppWindow(QMainWindow):
 
     def inicializa_botoes(self):
         # Menu
+        self.ui.actionIn_cio.triggered.connect(self.click_inicio)
+        self.ui.actionAjuda.triggered.connect(self.click_ajuda)
         self.ui.actionCr_ditos.triggered.connect(self.click_creditos)
         self.ui.actionInserir_Informa_es.triggered.connect(self.click_inserir)
         self.ui.actionCarregar_Pre_Defini_es.triggered.connect(self.click_predefinir)
         self.ui.actionRodar_Execu_o.triggered.connect(self.click_MRP)
         self.ui.actionItens_cadastrados.triggered.connect(self.click_itens)
+
+        # Início
+        self.ui.btn_automatico.clicked.connect(self.click_automatico)
         
         # Cadastrar
         self.ui.btn_cadastrar.clicked.connect(self.click_cadastrar)
@@ -48,13 +53,24 @@ class AppWindow(QMainWindow):
         self.ui.btn_novoitem.clicked.connect(self.click_inserir)
 
         # MRP
-        self.ui.combo_MRP.currentIndexChanged.connect(self.prepararMRP)
         self.ui.btn_executar.clicked.connect(self.executarMRP)
 
 
     # ############ Declaração de Ações dos Botões
 
     # ###### Menu
+
+    # Exibe Inicio
+    def click_inicio(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Inicial)
+
+    def click_automatico(self):
+        self.click_predefinir()
+        self.click_MRP()
+
+    # Exibe página de Ajuda
+    def click_ajuda(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Ajuda)
 
     # Exibe créditos
     def click_creditos(self):
@@ -200,41 +216,48 @@ class AppWindow(QMainWindow):
             # Perguntar se quer fazer modifivações
             pass
 
-
-    def prepararMRP(self):
-        item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
-        mrp = Item_MRP.find(item)
-        self.ui.lb_item_MRP.setText(item.codigo + " - " + item.nome)
-        self.setCell(0, 1, item.codigo)
-        self.atualizarMRP(mrp)
-
     # ###### Executar o MRP
     def executarMRP(self):
-        item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
-        mrp = Item_MRP.find(item)
-        for i in range(1, mrp.n):
-            col = i+1
-            mrp.rp[i] = self.getCell(2, col, mrp.rp[i])
-            mrp.ed[i] = self.getCell(3, col, mrp.ed[i])
-            mrp.lp[i] = self.getCell(4, col, mrp.lp[i])
-            mrp.set_nb(i, self.getCell(1, col, mrp.nb[i]))
-        self.atualizarMRP(mrp)
-
-    def atualizarMRP(self, mrp):
-        for i in range(mrp.n):
-            self.setCell(1, i+1, mrp.nb[i])
-            self.setCell(2, i+1, mrp.rp[i])
-            self.setCell(3, i+1, mrp.ed[i])
-            self.setCell(4, i+1, mrp.lp[i])
-
-    def setCell(self, i, j, n):
-        self.ui.tableWidget.setItem(i, j, QTableWidgetItem(str(n)))
-
-    def getCell(self, i, j, default):
-        it = self.ui.tableWidget.item(i, j)
-        if it != None:
-            return parsenumber(it.text())
-        return default
+         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
+         self.ui.lb_item_MRP.setText(self.ui.combo_MRP.currentText())
+         mrp = Item_MRP.find(item)
+         for nb in range(1, mrp.n):
+             # carregar qtd de nb do grid
+             mrp.set_nb(nb, 1)
+         #exibir mrp atualizado em page_MRP (grid 14x5 como a tabela do relatório)
+ 
+         self.ui.tableWidget.setRowCount(5)
+         self.ui.tableWidget.setColumnCount(14)
+         self.ui.tableWidget.verticalHeader().hide()
+         self.ui.tableWidget.horizontalHeader().hide()
+ 
+         # linha 0
+         self.ui.tableWidget.setItem(0,0, QTableWidgetItem("Período"))
+         for i in range(13):
+             self.ui.tableWidget.setItem(0,i+1, QTableWidgetItem(str(i)))
+ 
+         # linha 1
+         self.ui.tableWidget.setItem(1,0, QTableWidgetItem("NB"))
+         for i in range(13):
+             self.ui.tableWidget.setItem(1,i+1, QTableWidgetItem(str(mrp.nb[i])))
+ 
+         # linha 2
+         self.ui.tableWidget.setItem(2,0, QTableWidgetItem("RP"))
+         for i in range(13):
+             self.ui.tableWidget.setItem(2,i+1, QTableWidgetItem(str(mrp.rp[i])))
+ 
+         # linha 3
+         self.ui.tableWidget.setItem(3,0, QTableWidgetItem("Disp."))
+         for i in range(13):
+             self.ui.tableWidget.setItem(3,i+1, QTableWidgetItem(str(mrp.ed[i])))
+ 
+         # linha 4
+         self.ui.tableWidget.setItem(4,0, QTableWidgetItem("LP"))
+         for i in range(13):
+             self.ui.tableWidget.setItem(4,i+1, QTableWidgetItem(str(mrp.lp[i])))
+ 
+ 
+         self.ui.tableWidget.resizeColumnsToContents() 
 
 
 
