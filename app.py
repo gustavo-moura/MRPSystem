@@ -65,71 +65,74 @@ class AppWindow(QMainWindow):
         # Item(codigo, nome, tr_leadtime, lote_mínimo, emin, eatual)
         if(self.predefinido==False):
             # item 1
-            itm1 = Item("BK-2", "Bicicleta Padrão", 2, 10, 0, 2)
-            self.biblioteca.addItem(itm1)
+            i_bk2 = Item("BK-2", "Bicicleta Padrão", 2, 10, 0, 2)
+            self.biblioteca.addItem(i_bk2)
 
             # item 2
-            itm2 = Item("Sa-1", "Selim", 3, 20, 10, 0)
-            self.biblioteca.addItem(itm2)
+            i_sa1 = Item("Sa-1", "Selim", 3, 20, 10, 0)
+            self.biblioteca.addItem(i_sa1)
 
             # item 3
-            itm3 = Item("WH-1", "Roda", 2, 40, 20, 5)
-            self.biblioteca.addItem(itm3)
+            i_wh1 = Item("WH-1", "Roda", 2, 40, 20, 5)
+            self.biblioteca.addItem(i_wh1)
 
             # item 4
-            itm4 = Item("FR-2", "Quadro", 7, 20, 30, 10)
-            self.biblioteca.addItem(itm4)
+            i_fr2 = Item("FR-2", "Quadro", 7, 20, 30, 10)
+            self.biblioteca.addItem(i_fr2)
 
             # item 5
-            itm5 = Item("TR-1", "Pneu", 3, 100, 20, 30)
-            self.biblioteca.addItem(itm5)
+            i_tr1 = Item("TR-1", "Pneu", 3, 100, 20, 30)
+            self.biblioteca.addItem(i_tr1)
 
             # item 6
-            itm6 = Item("RM-1", "Aro", 1, 80, 100, 20)
-            self.biblioteca.addItem(itm6)
+            i_rm1 = Item("RM-1", "Aro", 1, 80, 100, 20)
+            self.biblioteca.addItem(i_rm1)
 
             # item 7
-            itm7 = Item("HB-1", "Cubo", 1, 80, 100, 20)
-            self.biblioteca.addItem(itm7)
+            i_hb1 = Item("HB-1", "Cubo", 1, 80, 100, 20)
+            self.biblioteca.addItem(i_hb1)
 
             # item 8
-            itm8 = Item("SP-1", "Raio", 3, 500, 500, 600)
-            self.biblioteca.addItem(itm8)
+            i_sp1 = Item("SP-1", "Raio", 3, 500, 500, 600)
+            self.biblioteca.addItem(i_sp1)
 
             # item 9
-            itm9 = Item("TU-1", "Tubo Metálico", 3, 60, 30, 30)
-            self.biblioteca.addItem(itm9)
+            i_tu1 = Item("TU-1", "Tubo Metálico", 3, 60, 30, 30)
+            self.biblioteca.addItem(i_tu1)
 
             # item 10
-            itm10 = Item("MS-1", "Tira Metálica", 3, 100, 2, 40)
-            self.biblioteca.addItem(itm10)
+            i_ms1 = Item("MS-1", "Tira Metálica", 3, 100, 2, 40)
+            self.biblioteca.addItem(i_ms1)
 
             # item 11
-            itm11 = Item("BB-1", "Rolamentos", 3, 50, 30, 5)
-            self.biblioteca.addItem(itm11)
+            i_bb1 = Item("BB-1", "Rolamentos", 3, 50, 30, 5)
+            self.biblioteca.addItem(i_bb1)
 
             # item 12
-            itm12 = Item("BO-1", "Eixo de Roda", 3, 100, 100, 40)
-            self.biblioteca.addItem(itm12)
+            i_bo1 = Item("BO-1", "Eixo de Roda", 3, 100, 100, 40)
+            self.biblioteca.addItem(i_bo1)
 
             # item 13
-            itm13 = Item("HO-1", "Cubo Externo", 3, 100, 100, 0)
-            self.biblioteca.addItem(itm13)
-
+            i_ho1 = Item("HO-1", "Cubo Externo", 3, 100, 100, 0)
+            self.biblioteca.addItem(i_ho1)
 
             # dependencias
-            itm1.addDependencia(itm2)
-            itm1.addDependencia(itm3)
-            itm1.addDependencia(itm4)
-            itm3.addDependencia(itm5)
-            itm3.addDependencia(itm6)
-            itm3.addDependencia(itm7)
-            itm3.addDependencia(itm8)
-            itm3.addDependencia(itm9)
-            itm6.addDependencia(itm10)
-            itm7.addDependencia(itm11)
-            itm7.addDependencia(itm12)
-            itm7.addDependencia(itm13)
+            i_bk2.addDependencia(i_fr2, 1)
+            i_bk2.addDependencia(i_sa1, 1)
+            i_bk2.addDependencia(i_wh1, 2)
+
+            i_fr2.addDependencia(i_tu1, 6)
+
+            i_wh1.addDependencia(i_tr1, 1)
+            i_wh1.addDependencia(i_rm1, 1)
+            i_wh1.addDependencia(i_hb1, 1)
+            i_wh1.addDependencia(i_sp1, 32)
+
+            i_rm1.addDependencia(i_ms1, 1.5)
+
+            i_hb1.addDependencia(i_bb1, 1)
+            i_hb1.addDependencia(i_bo1, 1)
+            i_hb1.addDependencia(i_ho1, 1)
 
 
         # Mensagem de informação de sucesso
@@ -159,8 +162,8 @@ class AppWindow(QMainWindow):
                 item = self.biblioteca.getItem_index(i)
                 l = QTreeWidgetItem([item.codigo + " - " + item.nome])
 
-                for j in range(len(item.dependencias)):
-                    c = QTreeWidgetItem([item.dependencias[j].codigo + " - " + item.dependencias[j].nome])
+                for dp in item.dependencias:
+                    c = QTreeWidgetItem([dp.item.codigo + " - " + dp.item.nome])
 
                     l.addChild(c)
 
