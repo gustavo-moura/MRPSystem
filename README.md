@@ -10,6 +10,8 @@ Link: https://github.com/gustavo-moura/MRPSystem/blob/master/dist/MRPSystem.exe
 (Clique em "Download" e execute o programa)
 
 
+## Especificações técnicas
+
 REQUISITOS MÍNIMOS
 
 Para rodar, é necessário instalar o PyQt5 (utilize o comando "pip install PyQt5") [não sei se funciona no Arch]
