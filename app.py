@@ -3,6 +3,17 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox, QTr
 from main import Ui_MainWindow
 from obj import Item, Item_MRP, Biblioteca
 
+def parsenumber(s):
+    try:
+        f = float(s)
+        i = int(s)
+        if f > i:
+            return f
+        else:
+            return i
+    except:
+        return None
+
 class AppWindow(QMainWindow):
     biblioteca = None
     predefinido = False
@@ -194,11 +205,7 @@ class AppWindow(QMainWindow):
         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
         mrp = Item_MRP.find(item)
         self.ui.lb_item_MRP.setText(item.codigo + " - " + item.nome)
-        self.ui.tableWidget.setItem(1, 1, QTableWidgetItem(str(mrp.nb[0])))
-        self.ui.tableWidget.setItem(2, 1, QTableWidgetItem(str(mrp.rp[0])))
-        self.ui.tableWidget.setItem(3, 1, QTableWidgetItem(str(mrp.ed[0])))
-        self.ui.tableWidget.setItem(4, 1, QTableWidgetItem(str(mrp.lp[0])))
-
+        self.atualizarMRP(mrp)
 
     # ###### Executar o MRP
     def executarMRP(self):
@@ -206,16 +213,20 @@ class AppWindow(QMainWindow):
         mrp = Item_MRP.find(item)
         for sem in range(1, mrp.n):
             try:
-                nb = float(self.ui.tableWidget.item(1, nb+1).text())
-                mrp.set_nb(sem, nb)
+                col = sem+1
+                nb = parsenumber(self.ui.tableWidget.item(1, col).text())
+                if nb != None:
+                    mrp.set_nb(sem, nb)
             except:
                 mrp.atualizar(sem)
+        self.atualizarMRP(mrp)
+
+    def atualizarMRP(self, mrp):
         for i in range(mrp.n):
             self.ui.tableWidget.setItem(1, i+1, QTableWidgetItem(str(mrp.nb[i])))
             self.ui.tableWidget.setItem(2, i+1, QTableWidgetItem(str(mrp.rp[i])))
             self.ui.tableWidget.setItem(3, i+1, QTableWidgetItem(str(mrp.ed[i])))
             self.ui.tableWidget.setItem(4, i+1, QTableWidgetItem(str(mrp.lp[i])))
-
 
 
 

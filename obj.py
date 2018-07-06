@@ -102,9 +102,8 @@ class Item_MRP():
 		self.atualizar(semana)
 
 	def set_nb(self, semana, qtd):
-		if qtd != self.nb[semana]:
-			self.nb[semana] = qtd
-			self.atualizar(semana)
+		self.nb[semana] = qtd
+		self.atualizar(semana)
 
 	def atualizar(self, inicio):
 		lote = self.item.lote
