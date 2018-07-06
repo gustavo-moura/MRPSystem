@@ -197,7 +197,7 @@ class AppWindow(QMainWindow):
         mrp = Item_MRP.find(item)
         for nb in range(1, mrp.n):
             # carregar qtd de nb do grid
-            mrp.set_nb(nb, 0)
+            mrp.set_nb(nb, 1)
         #exibir mrp atualizado em page_MRP (grid 14x5 como a tabela do relatório)
 
 
