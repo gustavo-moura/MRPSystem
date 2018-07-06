@@ -24,8 +24,9 @@ class Item():
 		self.dependencias = []
 
 
-	def addDependencia(self, item):
-		self.dependencias.append(item)
+	def addDependencia(self, item, qtd):
+		dp = Dependencia(item, qtd)
+		self.dependencias.append(dp)
 
 	def getDependencias(self):
 		for dp in self.dependencias:
@@ -101,8 +102,9 @@ class Item_MRP():
 		self.atualizar(semana)
 
 	def set_nb(self, semana, qtd):
-		self.nb[semana] = qtd
-		self.atualizar(semana)
+		if qtd != self.nb[semana]:
+			self.nb[semana] = qtd
+			self.atualizar(semana)
 
 	def atualizar(self, inicio):
 		lote = self.item.lote
@@ -115,7 +117,7 @@ class Item_MRP():
 			else:
 				self.ed[i] = ed + self.rp[i]
 	
-	def pedido(semana, qtd):
+	def pedido(self, semana, qtd):
 		'''
 		Libera pedidos para atender a quantidade solicitada na semana atual,
 		primeiro verificando os estoques de dependencias e atualizando seus MRPs
@@ -133,7 +135,14 @@ class Item_MRP():
 		self.rp[semana] += qtd
 		return True
 
+	_db = {} # "base de dados"
+
 	@classmethod
-	def find(item):
-		# Implementar busca de Item_MRP relacionado a um dado item
-		pass
+	def find(self, item):
+		try:
+			return Item_MRP._db[item]
+		except:
+			mrp = Item_MRP(item)
+			Item_MRP._db = Item_MRP(item)
+			return mrp
+
