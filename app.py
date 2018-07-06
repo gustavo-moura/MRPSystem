@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox, QTreeWidgetItem
+from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox, QTreeWidgetItem, QTableWidgetItem
 from main import Ui_MainWindow
 from obj import Item, Item_MRP, Biblioteca
 
@@ -37,8 +37,8 @@ class AppWindow(QMainWindow):
         self.ui.btn_novoitem.clicked.connect(self.click_inserir)
 
         # MRP
+        self.ui.combo_MRP.currentIndexChanged.connect(self.prepararMRP)
         self.ui.btn_executar.clicked.connect(self.executarMRP)
-
 
 
     # ############ Declaração de Ações dos Botões
@@ -190,15 +190,32 @@ class AppWindow(QMainWindow):
             pass
 
 
+    def prepararMRP(self):
+        item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
+        mrp = Item_MRP.find(item)
+        self.ui.lb_item_MRP.setText(item.codigo + " - " + item.nome)
+        self.ui.tableWidget.setItem(1, 1, QTableWidgetItem(str(mrp.nb[0])))
+        self.ui.tableWidget.setItem(2, 1, QTableWidgetItem(str(mrp.rp[0])))
+        self.ui.tableWidget.setItem(3, 1, QTableWidgetItem(str(mrp.ed[0])))
+        self.ui.tableWidget.setItem(4, 1, QTableWidgetItem(str(mrp.lp[0])))
+
 
     # ###### Executar o MRP
     def executarMRP(self):
         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
         mrp = Item_MRP.find(item)
-        for nb in range(1, mrp.n):
-            # carregar qtd de nb do grid
-            mrp.set_nb(nb, 1)
-        #exibir mrp atualizado em page_MRP (grid 14x5 como a tabela do relatório)
+        for sem in range(1, mrp.n):
+            try:
+                nb = float(self.ui.tableWidget.item(1, nb+1).text())
+                mrp.set_nb(sem, nb)
+            except:
+                mrp.atualizar(sem)
+        for i in range(mrp.n):
+            self.ui.tableWidget.setItem(1, i+1, QTableWidgetItem(str(mrp.nb[i])))
+            self.ui.tableWidget.setItem(2, i+1, QTableWidgetItem(str(mrp.rp[i])))
+            self.ui.tableWidget.setItem(3, i+1, QTableWidgetItem(str(mrp.ed[i])))
+            self.ui.tableWidget.setItem(4, i+1, QTableWidgetItem(str(mrp.lp[i])))
+
 
 
 

@@ -137,8 +137,7 @@ class Item_MRP():
 
 	_db = {} # "base de dados"
 
-	@classmethod
-	def find(self, item):
+	def find(item):
 		try:
 			return Item_MRP._db[item]
 		except:
