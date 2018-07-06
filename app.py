@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox, QTreeWidgetItem
+from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox, QTreeWidgetItem, QTableWidgetItem
 from main import Ui_MainWindow
 from obj import Item, Item_MRP, Biblioteca
 
@@ -24,11 +24,16 @@ class AppWindow(QMainWindow):
 
     def inicializa_botoes(self):
         # Menu
+        self.ui.actionIn_cio.triggered.connect(self.click_inicio)
+        self.ui.actionAjuda.triggered.connect(self.click_ajuda)
         self.ui.actionCr_ditos.triggered.connect(self.click_creditos)
         self.ui.actionInserir_Informa_es.triggered.connect(self.click_inserir)
         self.ui.actionCarregar_Pre_Defini_es.triggered.connect(self.click_predefinir)
         self.ui.actionRodar_Execu_o.triggered.connect(self.click_MRP)
         self.ui.actionItens_cadastrados.triggered.connect(self.click_itens)
+
+        # Início
+        self.ui.btn_automatico.clicked.connect(self.click_automatico)
         
         # Cadastrar
         self.ui.btn_cadastrar.clicked.connect(self.click_cadastrar)
@@ -44,6 +49,18 @@ class AppWindow(QMainWindow):
     # ############ Declaração de Ações dos Botões
 
     # ###### Menu
+
+    # Exibe Inicio
+    def click_inicio(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Inicial)
+
+    def click_automatico(self):
+        self.click_predefinir()
+        self.click_MRP()
+
+    # Exibe página de Ajuda
+    def click_ajuda(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page_Ajuda)
 
     # Exibe créditos
     def click_creditos(self):
@@ -194,11 +211,45 @@ class AppWindow(QMainWindow):
     # ###### Executar o MRP
     def executarMRP(self):
         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
+        self.ui.lb_item_MRP.setText(self.ui.combo_MRP.currentText())
         mrp = Item_MRP.find(item)
         for nb in range(1, mrp.n):
             # carregar qtd de nb do grid
             mrp.set_nb(nb, 1)
         #exibir mrp atualizado em page_MRP (grid 14x5 como a tabela do relatório)
+
+        self.ui.tableWidget.setRowCount(5)
+        self.ui.tableWidget.setColumnCount(14)
+        self.ui.tableWidget.verticalHeader().hide()
+        self.ui.tableWidget.horizontalHeader().hide()
+
+        # linha 0
+        self.ui.tableWidget.setItem(0,0, QTableWidgetItem("Período"))
+        for i in range(13):
+            self.ui.tableWidget.setItem(0,i+1, QTableWidgetItem(str(i)))
+
+        # linha 1
+        self.ui.tableWidget.setItem(1,0, QTableWidgetItem("NB"))
+        for i in range(13):
+            self.ui.tableWidget.setItem(1,i+1, QTableWidgetItem(str(mrp.nb[i])))
+
+        # linha 2
+        self.ui.tableWidget.setItem(2,0, QTableWidgetItem("RP"))
+        for i in range(13):
+            self.ui.tableWidget.setItem(2,i+1, QTableWidgetItem(str(mrp.rp[i])))
+
+        # linha 3
+        self.ui.tableWidget.setItem(3,0, QTableWidgetItem("Disp."))
+        for i in range(13):
+            self.ui.tableWidget.setItem(3,i+1, QTableWidgetItem(str(mrp.ed[i])))
+
+        # linha 4
+        self.ui.tableWidget.setItem(4,0, QTableWidgetItem("LP"))
+        for i in range(13):
+            self.ui.tableWidget.setItem(4,i+1, QTableWidgetItem(str(mrp.lp[i])))
+
+
+        self.ui.tableWidget.resizeColumnsToContents()
 
 
 
