@@ -213,15 +213,11 @@ class AppWindow(QMainWindow):
         item = self.biblioteca.getItem_index(self.ui.combo_MRP.currentIndex())
         mrp = Item_MRP.find(item)
         for i in range(1, mrp.n):
-            try:
-                col = i+1
-                mrp.nb[i] = self.getCell(1, col) or mrp.nb[i]
-                mrp.rp[i] = self.getCell(2, col) or mrp.rp[i]
-                mrp.ed[i] = self.getCell(3, col) or mrp.ed[i]
-                mrp.lp[i] = self.getCell(4, col) or mrp.lp[i]
-            except:
-                pass
-        mrp.atualizar(1)
+            col = i+1
+            mrp.rp[i] = self.getCell(2, col, mrp.rp[i])
+            mrp.ed[i] = self.getCell(3, col, mrp.ed[i])
+            mrp.lp[i] = self.getCell(4, col, mrp.lp[i])
+            mrp.set_nb(i, self.getCell(1, col, mrp.nb[i]))
         self.atualizarMRP(mrp)
 
     def atualizarMRP(self, mrp):
@@ -234,10 +230,11 @@ class AppWindow(QMainWindow):
     def setCell(self, i, j, n):
         self.ui.tableWidget.setItem(i, j, QTableWidgetItem(str(n)))
 
-    def getCell(self, i, j):
+    def getCell(self, i, j, default):
         it = self.ui.tableWidget.item(i, j)
-        if it:
+        if it != None:
             return parsenumber(it.text())
+        return default
 
 
 
