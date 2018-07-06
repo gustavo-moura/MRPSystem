@@ -9,6 +9,8 @@ Para executar o programa no Windows, baixe o executável "MRPSystem.exe" (dist/M
 Link: https://github.com/gustavo-moura/MRPSystem/blob/master/dist/MRPSystem.exe
 (Clique em "Download" e execute o programa)
 
+Obs. Dentro do programa, vá até a aba "Arquivo -> Ajuda" para obter mais instruções sobre o uso.
+
 
 ## Especificações técnicas
 
