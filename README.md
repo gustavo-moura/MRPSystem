@@ -4,9 +4,10 @@ This repository contains the implementation of a MRP system in the context of th
 
 ## Executável (Windows)
 
-Para executar o programa no Windows, baixe o executável "MRPSystem.exe" e o execute normalmente.
+Para executar o programa no Windows, baixe o executável "MRPSystem.exe" (dist/MRPSystem.exe) e o execute normalmente.
 
-Link: 
+Link: https://github.com/gustavo-moura/MRPSystem/blob/master/dist/MRPSystem.exe
+(Clique em "Download" e execute o programa)
 
 
 REQUISITOS MÍNIMOS
